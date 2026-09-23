@@ -1,5 +1,5 @@
 <h1 align="center">🔦 agent-lighthouse</h1>
-<p align="center"><b>Lighthouse for AI agents.</b> Score your system prompt and tool definitions in one fast pass.</p>
+<p align="center"><b>Lighthouse for AI agents.</b> Score your system prompt and tool definitions in one fast pass, powered by <a href="https://docs.typesafe.ai">Jev</a>.</p>
 <p align="center">
   <code>npx agent-lighthouse ./my-agent</code>
 </p>
@@ -16,11 +16,11 @@ Most agent failures don't come from the model. They come from **how the agent is
 
 `agent-lighthouse` reads your agent's **system prompt** and **tool / MCP definitions** and runs about 60 best-practice checks on them. You get a score, a fix-list and a README badge.
 
+The judgment calls, such as "is this tool's purpose clear?" or "do these two tools overlap?", are made by **[Jev](https://docs.typesafe.ai)**, TypeSafe AI's *System One* model. Jev doesn't write an opinion. It answers each typed question with a **calibrated probability** and answers them all **in parallel**. The whole audit takes about a second, and checks Jev is honestly unsure about are flagged for a human instead of guessed.
+
 ## Why it's fast: Jev
 
-The semantic checks are answered by **[Jev](https://docs.typesafe.ai)**, TypeSafe AI's *System One* model. Jev doesn't generate text. It answers typed questions (yes/no, choice, score) with **calibrated probabilities**, and it answers every question in a request **in parallel**.
-
-That changes how an agent linter can work:
+Jev doesn't generate text. Its answers are typed (yes/no, choice, score), each with a calibrated probability, and it answers every question in a request at once. That changes how an agent linter can work:
 
 | | Asking an LLM judge | agent-lighthouse with Jev |
 |---|---|---|
