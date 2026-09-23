@@ -20,11 +20,28 @@ jobs:
   dogfood:
     # Scores the example agents with this repo's own action.
     # Add a TYPESAFE_API_KEY repo secret to run the semantic checks too.
+    # On main, the score badge is published to the `badges` branch for the README.
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: ./
         with:
           path: examples/support-agent-fixed
           min-score: "75"
+          badge: agent-score.svg
           typesafe-api-key: ${{ secrets.TYPESAFE_API_KEY }}
+      - name: Publish badge
+        # Runs even if the score gate failed, so the badge always shows the real score.
+        if: ${{ !cancelled() && github.event_name == 'push' && github.ref == 'refs/heads/main' && hashFiles('agent-score.svg') != '' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir "$RUNNER_TEMP/badges" && cd "$RUNNER_TEMP/badges"
+          cp "$GITHUB_WORKSPACE/agent-score.svg" .
+          git init -q -b badges
+          git add agent-score.svg
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -qm "Update agent score badge"
+          git push -qf "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" badges

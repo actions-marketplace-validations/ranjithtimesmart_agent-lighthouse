@@ -3,6 +3,9 @@
 <p align="center">
   <code>npx agent-lighthouse ./my-agent</code>
 </p>
+<p align="center">
+  <a href="https://github.com/ranjithtimesmart/agent-lighthouse/actions/workflows/ci.yml"><img src="https://raw.githubusercontent.com/ranjithtimesmart/agent-lighthouse/badges/agent-score.svg" alt="agent score, scored by this repo's own CI"></a>
+</p>
 <p align="center"><img src="docs/demo.gif" alt="agent-lighthouse scoring a support agent" width="820"></p>
 
 ---
@@ -110,6 +113,8 @@ The action posts the Markdown report to the job summary, sets a `score` output a
 ```md
 ![agent score](docs/agent-score.svg)
 ```
+
+The badge at the top of this README is made this way. On every push to `main`, [this repo's CI](.github/workflows/ci.yml) runs the action on [`examples/support-agent-fixed`](examples/support-agent-fixed) and publishes the badge to the `badges` branch, so the README never needs a bot commit.
 
 ## As a library
 
