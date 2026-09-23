@@ -1,4 +1,4 @@
-name: Agent Lighthouse
+name: Agent Lighthouse Score
 description: Score your AI agent's system prompt and tools with Jev, and fail the build below a minimum score.
 branding:
   icon: zap

@@ -1,6 +1,6 @@
 {
   "name": "agent-lighthouse",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lighthouse-style score for your AI agent's system prompt and tools, powered by Jev, TypeSafe AI's System One model. About 60 checks in about a second.",
   "type": "module",
   "bin": { "agent-lighthouse": "bin/agent-lighthouse.js" },
