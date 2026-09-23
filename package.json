@@ -16,5 +16,5 @@
   "keywords": ["ai-agents", "llm", "mcp", "tool-use", "prompt-engineering", "lint", "jev", "typesafe", "guardrails", "evals"],
   "author": "Ranjith Raghavan",
   "license": "MIT",
-  "repository": { "type": "git", "url": "git+https://github.com/YOUR_GITHUB_USER/agent-lighthouse.git" }
+  "repository": { "type": "git", "url": "git+https://github.com/ranjithtimesmart/agent-lighthouse.git" }
 }

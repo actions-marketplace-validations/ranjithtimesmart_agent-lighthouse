@@ -69,7 +69,7 @@ It starts the server over stdio, runs the MCP handshake, pages through `tools/li
 ## Try the examples
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_USER/agent-lighthouse && cd agent-lighthouse
+git clone https://github.com/ranjithtimesmart/agent-lighthouse && cd agent-lighthouse
 node bin/agent-lighthouse.js examples/support-agent         # a realistic, flawed agent
 node bin/agent-lighthouse.js examples/support-agent-fixed   # the same agent, done right
 ```
@@ -97,7 +97,7 @@ Every Jev check turns its answer into a **credit** between 0 and 1, the probabil
 ## In CI
 
 ```yaml
-- uses: YOUR_GITHUB_USER/agent-lighthouse@v0
+- uses: ranjithtimesmart/agent-lighthouse@v0
   with:
     path: agents/support
     min-score: 75
