@@ -1,0 +1,20 @@
+{
+  "name": "agent-lighthouse",
+  "version": "0.1.0",
+  "description": "Lighthouse-style score for your AI agent's system prompt and tools, powered by Jev, TypeSafe AI's System One model. About 60 checks in about a second.",
+  "type": "module",
+  "bin": { "agent-lighthouse": "bin/agent-lighthouse.js" },
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": ["bin", "src", "README.md", "LICENSE"],
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "demo": "node bin/agent-lighthouse.js examples/support-agent"
+  },
+  "keywords": ["ai-agents", "llm", "mcp", "tool-use", "prompt-engineering", "lint", "jev", "typesafe", "guardrails", "evals"],
+  "author": "Ranjith Raghavan",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/YOUR_GITHUB_USER/agent-lighthouse.git" }
+}

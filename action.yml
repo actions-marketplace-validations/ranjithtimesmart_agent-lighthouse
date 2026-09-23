@@ -1,0 +1,36 @@
+name: Agent Lighthouse
+description: Score your AI agent's system prompt and tools with Jev, and fail the build below a minimum score.
+branding:
+  icon: zap
+  color: yellow
+inputs:
+  path:
+    description: Folder with the agent's prompt and tools (or a tools .json file)
+    default: "."
+  min-score:
+    description: Fail if the overall score is below this
+    default: "0"
+  badge:
+    description: Optional path to write an SVG score badge
+    default: ""
+  typesafe-api-key:
+    description: Jev API key (pass a secret). Without it, only static checks run.
+    required: false
+outputs:
+  score:
+    description: Overall score, 0–100
+    value: ${{ steps.run.outputs.score }}
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: "22"
+    - id: run
+      shell: bash
+      env:
+        TYPESAFE_API_KEY: ${{ inputs.typesafe-api-key }}
+      run: |
+        args=("${{ inputs.path }}" --min-score "${{ inputs.min-score }}")
+        if [ -n "${{ inputs.badge }}" ]; then args+=(--badge "${{ inputs.badge }}"); fi
+        node "${{ github.action_path }}/bin/agent-lighthouse.js" "${args[@]}"

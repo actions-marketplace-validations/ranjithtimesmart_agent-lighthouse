@@ -1,0 +1,57 @@
+[
+  {
+    "name": "get_order",
+    "description": "Fetches one order by its order number. Use this first for any question about a specific order. Returns {order_id, status, items, total_usd, shipping_address, tracking_url}. Returns {error: 'not_found'} if the number doesn't match; in that case ask the customer to double-check it.",
+    "input_schema": {
+      "type": "object",
+      "properties": { "order_id": { "type": "string", "description": "Acme order number, format 'AC-' plus 8 digits, e.g. AC-20481937." } },
+      "required": ["order_id"]
+    }
+  },
+  {
+    "name": "refund_order",
+    "description": "Issues a refund to the original payment method. This moves money and can't be undone: only call it after the customer has confirmed the order number and amount. Amounts over $200 are rejected with {error: 'needs_human'}; use handoff_to_human instead. Returns {refund_id, amount_usd, eta_days}.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "order_id": { "type": "string", "description": "Order number, e.g. AC-20481937." },
+        "amount_usd": { "type": "number", "description": "Refund amount in US dollars, up to the order total and at most 200." },
+        "reason": { "type": "string", "enum": ["damaged", "late", "wrong_item", "changed_mind", "other"], "description": "Why the customer wants a refund." }
+      },
+      "required": ["order_id", "amount_usd", "reason"]
+    }
+  },
+  {
+    "name": "email_customer",
+    "description": "Emails the customer on file for an order a short plain-text summary of this conversation. Use only when the customer asks for a written summary. It can't send to any other address. Returns {sent: true} or {error} if the order has no email.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "order_id": { "type": "string", "description": "Order whose customer will receive the email." },
+        "summary": { "type": "string", "description": "Plain text, under 1,000 characters. No card numbers." }
+      },
+      "required": ["order_id", "summary"]
+    }
+  },
+  {
+    "name": "search_help_center",
+    "description": "Searches Acme's help-center articles for policies (returns, shipping, sizing). Use it for any policy question instead of answering from memory. Returns up to 5 matches as {title, url, snippet}, or an empty list when nothing matches. In that case, say you'll check with a colleague and hand off.",
+    "input_schema": {
+      "type": "object",
+      "properties": { "query": { "type": "string", "description": "Plain-language search, e.g. 'return window for sale items'." } },
+      "required": ["query"]
+    }
+  },
+  {
+    "name": "handoff_to_human",
+    "description": "Transfers the conversation to a human support specialist, with a summary so the customer doesn't have to repeat themselves. Use it when the customer asks for a person, stays upset after one attempt, requests a refund over $200, or raises legal, medical or safety issues. Returns {ticket_id, expected_wait_minutes}.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "reason": { "type": "string", "description": "One line on why you're handing off." },
+        "summary": { "type": "string", "description": "What the customer needs and what you've already tried." }
+      },
+      "required": ["reason", "summary"]
+    }
+  }
+]

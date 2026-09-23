@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["18", "20", "22"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm test
+
+  dogfood:
+    # Scores the example agents with this repo's own action.
+    # Add a TYPESAFE_API_KEY repo secret to run the semantic checks too.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        with:
+          path: examples/support-agent-fixed
+          min-score: "75"
+          typesafe-api-key: ${{ secrets.TYPESAFE_API_KEY }}

@@ -1,0 +1,60 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "lookup_order",
+      "description": "Looks up an order.",
+      "parameters": {
+        "type": "object",
+        "properties": { "id": { "type": "string" } }
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "get_order_details",
+      "description": "Gets order info for an order.",
+      "parameters": {
+        "type": "object",
+        "properties": { "order": { "type": "string" } },
+        "required": ["order"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "process",
+      "description": "Refunds.",
+      "parameters": {
+        "type": "object",
+        "properties": { "order": { "type": "string" }, "amt": { "type": "number" } }
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "send_email",
+      "description": "Sends an email to the customer.",
+      "parameters": {
+        "type": "object",
+        "properties": { "to": { "type": "string" }, "body": { "type": "string" } },
+        "required": ["to", "body"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "search_help_center",
+      "description": "Searches Acme's help-center articles for policies (returns, shipping, sizing). Returns up to 5 matches as {title, url, snippet}. Returns an empty list when nothing matches.",
+      "parameters": {
+        "type": "object",
+        "properties": { "query": { "type": "string", "description": "Plain-language search, e.g. 'return window for sale items'." } },
+        "required": ["query"]
+      }
+    }
+  }
+]
